@@ -1,8 +1,7 @@
 package GUI_exam;
 
-import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -19,42 +18,43 @@ import javax.swing.*;
  * 	<li>2024-12-22 : 클래스 구분
  * 	<li>2024-12-22 : 카드레이아웃을 위한 엑션리스너추가
  * 	<li>2024-12-22 : 로그인 화면 클래스 처음에 보이게 설정
+ * 	<li>2024-12-22 : 메인패널로 패널 분리후 카드레이아웃을 이용해 로그인 화면과 메인화면 보이게 함
  * </ul>
  * 
  */
 public class FinalExam extends JFrame {
-	private JPanel mainPanel;
+	private CardLayout cardLayout;
+	private JPanel mainContainer;
 
-	public FinalExam() {
+	FinalExam() {
 		this.setTitle("기숙사 건의사항");
 		this.setSize(500, 500);
-		this.setLayout(new BorderLayout());
-		
-		mainPanel = new JPanel();
-		mainPanel.setLayout(new BorderLayout());
-		
-		JPanel testPanel = new JPanel();
-		testPanel.setBackground(Color.black);
-		
-		NorthPanel northPanel = new NorthPanel();
-		CenterPanel centerPanel = new CenterPanel();
-		WestPanel westPanel = new WestPanel(new ActionListener() {
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setBackground(Color.WHITE);
+
+		cardLayout = new CardLayout();
+		mainContainer = new JPanel(cardLayout);
+
+		RockPanel rockPanel = new RockPanel(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String actionCommand = e.getActionCommand();
-				centerPanel.showPanel(actionCommand);
+				String command = e.getActionCommand();
+				if ("로그인".equals(command)) {
+					cardLayout.show(mainContainer, "MainPanel");
+				}
 			}
 		});
-		RockPanel rockPanel = new RockPanel();
-		mainPanel.add(northPanel, BorderLayout.NORTH);
-		mainPanel.add(westPanel, BorderLayout.WEST);
-		mainPanel.add(centerPanel, BorderLayout.CENTER);
-		
-		this.add(rockPanel, BorderLayout.CENTER);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		MainPanel mainPanel = new MainPanel();
+
+		mainContainer.add(rockPanel, "RockPanel");
+		mainContainer.add(mainPanel, "MainPanel");
+
+		this.add(mainContainer);
+		cardLayout.show(mainContainer, "RockPanel");
 		this.setVisible(true);
 	}
-
+	
 	/**
 	 * 화면 실행 메서드
 	 * 
