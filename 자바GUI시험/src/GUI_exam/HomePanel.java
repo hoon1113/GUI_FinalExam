@@ -48,7 +48,7 @@ public class HomePanel extends JPanel {
         label2.setHorizontalAlignment(SwingConstants.CENTER);
         JComboBox<String> spotComboBox = new JComboBox<>();
         JButton finish = new JButton("등록");
-
+        
         comboBoxPanel.add(placeComboBox);
         comboBoxPanel.add(label2);
         comboBoxPanel.add(spotComboBox);
@@ -76,9 +76,16 @@ public class HomePanel extends JPanel {
         textAreaPanel.add(scrollPane, BorderLayout.CENTER);
         textAreaPanel.add(outputPanel, BorderLayout.SOUTH);
         
+        JPanel comboDesignPanel = new JPanel(new GridLayout(4,0));
+        comboDesignPanel.setBackground(Color.WHITE);
+        comboDesignPanel.add(comboBoxPanel);
+        
+        JPanel CenterCombo = new JPanel(new GridLayout(2,0));
+        CenterCombo.add(comboDesignPanel);
+        CenterCombo.add(textAreaPanel);
+        
         this.add(labelPanel, BorderLayout.NORTH);
-        this.add(comboBoxPanel, BorderLayout.CENTER);
-        this.add(textAreaPanel, BorderLayout.SOUTH);
+        this.add(CenterCombo, BorderLayout.CENTER);
         
         finish.addActionListener(new ActionListener() {
             @Override
@@ -88,7 +95,7 @@ public class HomePanel extends JPanel {
                 String suggestion = suggestionTextArea.getText();
 
                 // 출력할 텍스트 구성
-                String outputText = "<html><b>선택된 항목:</b> " + selectedPlace + "의 " + selectedSpot
+                String outputText = "<html><b>수리항목:</b> " + selectedPlace + "의 " + selectedSpot
                         + "<br><b>건의사항:</b> " + suggestion + "</html>";
 
                 // 결과 출력

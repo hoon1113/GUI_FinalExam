@@ -1,10 +1,6 @@
 package GUI_exam;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,12 +11,20 @@ public class FinalExam extends JFrame{
 
     public FinalExam() {
         this.setTitle("기숙사 건의사항");
-        this.setSize(700, 500);
+        this.setSize(500, 500);
         this.setLayout(new BorderLayout());
 
-        northPanel = new NorthPanel();
-        westPanel = new WestPanel();
-        centerPanel = new CenterPanel();
+        NorthPanel northPanel = new NorthPanel();
+        CenterPanel centerPanel = new CenterPanel();
+        WestPanel westPanel = new WestPanel(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String actionCommand = e.getActionCommand();
+				centerPanel.showPanel(actionCommand);
+			}
+		});
+        
 
         this.add(northPanel, BorderLayout.NORTH);
         this.add(westPanel, BorderLayout.WEST);
