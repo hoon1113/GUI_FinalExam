@@ -18,7 +18,7 @@ import javax.swing.JPanel;
  */
 public class WestPanel extends JPanel {
     public WestPanel(ActionListener buttonListener) {
-        this.setLayout(new GridLayout(8, 0));
+        this.setLayout(new GridLayout(8, 0,1,1));
         this.setBackground(Color.WHITE);
         Color Light_Blue = new Color(74, 168, 216);
         this.add(createButton("홈", "home", buttonListener, Light_Blue));

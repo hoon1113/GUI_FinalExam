@@ -39,7 +39,7 @@ public class HomePanel extends JPanel {
         label1.setHorizontalAlignment(SwingConstants.LEFT);
         labelPanel.add(label1);
         
-        JPanel comboBoxPanel = new JPanel(new GridLayout(0,4));
+        JPanel comboBoxPanel = new JPanel(new GridLayout(0,4,2,2));
         comboBoxPanel.setBackground(Color.WHITE);
         
         String[] places = {"전체", "화장실", "생활관", "거실", "샤워실", "신발장", "발코니"};

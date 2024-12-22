@@ -3,6 +3,7 @@ package GUI_exam;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 import javax.swing.*;
 
@@ -14,7 +15,11 @@ import javax.swing.*;
  * </ul>
  */
 public class RockPanel extends JPanel {
-	public RockPanel(ActionListener PanelListener) {
+	private HashMap<String, String> loginInfo;
+	private JLabel errorLabel;
+
+	public RockPanel(ActionListener PanelListener, HashMap<String, String> loginInfo) {
+		this.loginInfo = loginInfo;
 		this.setLayout(new GridBagLayout());
 		this.setBackground(Color.WHITE);
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -25,6 +30,10 @@ public class RockPanel extends JPanel {
 
 		JLabel passwordLabel = new JLabel("비밀번호:");
 		JPasswordField passwordField = new JPasswordField(15);
+
+		errorLabel = new JLabel("");
+		errorLabel.setForeground(Color.RED);
+		errorLabel.setVisible(false);
 
 		gbc.gridx = 0;
 		gbc.gridy = 0;
@@ -44,7 +53,22 @@ public class RockPanel extends JPanel {
 		gbc.gridy = 2;
 		gbc.gridwidth = 2;
 		gbc.anchor = GridBagConstraints.CENTER;
-		this.add(createButton("로그인", "로그인", PanelListener), gbc);
+		JButton loginButton = createButton("로그인", "로그인", e -> {
+			String id = idField.getText();
+			String password = new String(passwordField.getPassword());
+
+			if (loginInfo.containsKey(id) && loginInfo.get(id).equals(password)) {
+				errorLabel.setVisible(false);
+				PanelListener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "로그인"));
+			} else {
+				errorLabel.setText("로그인 정보가 옳지 않습니다");
+				errorLabel.setVisible(true);
+			}
+		});
+		this.add(loginButton, gbc);
+
+		gbc.gridy = 3;
+		this.add(errorLabel, gbc);
 	}
 
 	private JButton createButton(String name, String actionCommand, ActionListener listener) {

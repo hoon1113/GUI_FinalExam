@@ -11,7 +11,7 @@ import javax.swing.JPanel;
  */
 public class MainPanel extends JPanel{
 	public MainPanel() {
-		this.setLayout(new BorderLayout());
+		this.setLayout(new BorderLayout(2,2));
 		this.setBackground(Color.WHITE);
 
 		NorthPanel northPanel = new NorthPanel();

@@ -4,6 +4,10 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
 
 import javax.swing.*;
 
@@ -25,6 +29,7 @@ import javax.swing.*;
 public class FinalExam extends JFrame {
 	private CardLayout cardLayout;
 	private JPanel mainContainer;
+	private HashMap<String, String> loginInfo;
 
 	FinalExam() {
 		this.setTitle("기숙사 건의사항");
@@ -32,18 +37,14 @@ public class FinalExam extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBackground(Color.WHITE);
 
+		loginInfo = loadLoginInfo("image//stu.csv");
+
 		cardLayout = new CardLayout();
 		mainContainer = new JPanel(cardLayout);
 
-		RockPanel rockPanel = new RockPanel(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String command = e.getActionCommand();
-				if ("로그인".equals(command)) {
-					cardLayout.show(mainContainer, "MainPanel");
-				}
-			}
-		});
+		RockPanel rockPanel = new RockPanel(e -> {
+			cardLayout.show(mainContainer, "MainPanel");
+		}, loginInfo);
 
 		MainPanel mainPanel = new MainPanel();
 
@@ -51,10 +52,26 @@ public class FinalExam extends JFrame {
 		mainContainer.add(mainPanel, "MainPanel");
 
 		this.add(mainContainer);
-		cardLayout.show(mainContainer, "RockPanel");
+		cardLayout.show(mainContainer, "RockPanel"); // 처음에 RockPanel을 표시
 		this.setVisible(true);
 	}
-	
+
+	private HashMap<String, String> loadLoginInfo(String fileName) {
+		HashMap<String, String> info = new HashMap<>();
+		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+			String line;
+			while ((line = br.readLine()) != null) {
+				String[] parts = line.split(",");
+				if (parts.length >= 2) {
+					info.put(parts[0].trim(), parts[1].trim());
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return info;
+	}
+
 	/**
 	 * 화면 실행 메서드
 	 * 
@@ -63,4 +80,4 @@ public class FinalExam extends JFrame {
 	public static void main(String[] args) {
 		new FinalExam();
 	}
-}
+} 
