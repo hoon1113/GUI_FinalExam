@@ -29,31 +29,35 @@ import javax.swing.SwingConstants;
  * @return HomePanel
  */
 public class HomePanel extends JPanel {
-    public HomePanel() {
+	private int recordCounter = 1; // 순번 카운터
+    private RecordPanel recordPanel;
+
+    public HomePanel(RecordPanel recordPanel) {
+        this.recordPanel = recordPanel;
         this.setBackground(Color.WHITE);
         this.setLayout(new BorderLayout());
-        
+
         JPanel labelPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         labelPanel.setBackground(Color.WHITE);
         JLabel label1 = new JLabel("접수");
         label1.setHorizontalAlignment(SwingConstants.LEFT);
         labelPanel.add(label1);
-        
-        JPanel comboBoxPanel = new JPanel(new GridLayout(0,4,2,2));
+
+        JPanel comboBoxPanel = new JPanel(new GridLayout(0, 4, 2, 2));
         comboBoxPanel.setBackground(Color.WHITE);
-        
-        String[] places = {"전체", "화장실", "생활관", "거실", "샤워실", "신발장", "발코니"};
+
+        String[] places = { "전체", "화장실", "생활관", "거실", "샤워실", "신발장", "발코니" };
         JComboBox<String> placeComboBox = new JComboBox<>(places);
         JLabel label2 = new JLabel("의");
         label2.setHorizontalAlignment(SwingConstants.CENTER);
         JComboBox<String> spotComboBox = new JComboBox<>();
         JButton finish = new JButton("등록");
-        
+
         comboBoxPanel.add(placeComboBox);
         comboBoxPanel.add(label2);
         comboBoxPanel.add(spotComboBox);
         comboBoxPanel.add(finish);
-        
+
         JPanel textAreaPanel = new JPanel(new BorderLayout());
         textAreaPanel.setBackground(Color.WHITE);
         JLabel textAreaLabel = new JLabel("기타 건의사항:");
@@ -61,32 +65,33 @@ public class HomePanel extends JPanel {
         suggestionTextArea.setLineWrap(true);
         suggestionTextArea.setWrapStyleWord(true);
         JScrollPane scrollPane = new JScrollPane(suggestionTextArea);
-        
+
         JLabel outputLabel = new JLabel();
         outputLabel.setHorizontalAlignment(SwingConstants.LEFT);
         outputLabel.setOpaque(true);
         outputLabel.setBackground(Color.LIGHT_GRAY);
         outputLabel.setForeground(Color.BLACK);
-        
+
         JPanel outputPanel = new JPanel(new BorderLayout());
         outputPanel.setBackground(Color.WHITE);
         outputPanel.add(outputLabel, BorderLayout.CENTER);
-        
+
         textAreaPanel.add(textAreaLabel, BorderLayout.NORTH);
         textAreaPanel.add(scrollPane, BorderLayout.CENTER);
         textAreaPanel.add(outputPanel, BorderLayout.SOUTH);
-        
-        JPanel comboDesignPanel = new JPanel(new GridLayout(4,0));
+
+        JPanel comboDesignPanel = new JPanel(new GridLayout(6, 0));
         comboDesignPanel.setBackground(Color.WHITE);
         comboDesignPanel.add(comboBoxPanel);
-        
-        JPanel CenterCombo = new JPanel(new GridLayout(2,0));
+
+        JPanel CenterCombo = new JPanel(new GridLayout(3, 0));
+        CenterCombo.setBackground(Color.WHITE);
         CenterCombo.add(comboDesignPanel);
         CenterCombo.add(textAreaPanel);
-        
+
         this.add(labelPanel, BorderLayout.NORTH);
         this.add(CenterCombo, BorderLayout.CENTER);
-        
+
         finish.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -100,6 +105,11 @@ public class HomePanel extends JPanel {
 
                 // 결과 출력
                 outputLabel.setText(outputText);
+
+                // RecordPanel에 기록 추가
+                String recordText = "수리항목: " + selectedPlace + "의 " + selectedSpot + ", 건의사항: " + suggestion;
+                recordPanel.addRecord(recordText);
+                recordCounter++;
             }
         });
 

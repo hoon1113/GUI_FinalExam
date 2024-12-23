@@ -20,8 +20,8 @@ public class CenterPanel extends JPanel {
 		this.setLayout(new CardLayout());
 		this.setBackground(Color.WHITE);
 
-		HomePanel homePanel = new HomePanel();
 		RecordPanel recordPanel = new RecordPanel();
+		HomePanel homePanel = new HomePanel(recordPanel);
 		Refund_CheckoutPanel refund_checkoutPanel = new Refund_CheckoutPanel();
 
 		this.add(homePanel, "home");
