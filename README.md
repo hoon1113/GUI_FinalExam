@@ -50,4 +50,19 @@
 
 ## 클래스 다이어그램
 
-![Class_Diagram]()
+![Class_Diagram](https://github.com/hoon1113/GUI_FinalExam/blob/main/Class_Diagram.jpg)
+
+위에는 클래스 단위로 구분된 프로그램이 클래스끼리 어떻게 영향을 주는지 보여주는 다이어그램이다.
+
+- 메인 클래스는 FinalExam.java이다.
+- 프로그램이 실행되는 클래스이다.
+- 이곳은 크게 RockPanel이랑 MainPanel로 나뉘며 처음에 RockPanel이 보여지고 로그인에 성공하면 cardLayout에 의해 MainPanel로 넘어간다.
+- 해쉬멥을 이용해 csv의 정보를 저장한다.
+
+- RockPanel은 말그대로 처음 보여지는 잠금화면이다. 학번과 비밀번호를 치고 로그인 버튼을 누르면 MainPanel로 넘어간다.
+- 로그인 버튼은 엔터키를 입력해도 클릭 될 수 있게 편의성을 고려해 만들었다.
+- HashMap에 저장된 정보와 사용자가 입력한 정보가 일치 하지 않으면 로그인 정보가 일치 하지 않다고 오류 메시지를 표시한다.
+- 배경은 청주대 사진을 넣어봤다. (중요한 것은 아니다.)
+
+- MainPanel은 로그인이 성공했을때 나오는 화면이다. 이 패널을 BorderLayout으로 구성되어 있고 각 패널 또한 각자의 클래스로 구분되어있다.
+- 각자 NorthPanel, CenterPanel, WestPanel로 구분되어있으며 이 클래스들 또한 차차 설명 할 것이다.
