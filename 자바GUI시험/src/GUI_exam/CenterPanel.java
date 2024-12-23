@@ -14,12 +14,14 @@ import javax.swing.JPanel;
  *  <li>2024-12-22 : 다른 클래스들 패널로 추가
  * </ul>
  * 
+ * @return CenterPanel
  */
 public class CenterPanel extends JPanel {
 	public CenterPanel() {
 		this.setLayout(new CardLayout());
 		this.setBackground(Color.WHITE);
 
+		// RecordPanel과 HomePanel 객체 생성
 		RecordPanel recordPanel = new RecordPanel();
 		HomePanel homePanel = new HomePanel(recordPanel);
 
@@ -27,6 +29,11 @@ public class CenterPanel extends JPanel {
 		this.add(recordPanel, "record");
 		
 	}
+    /**
+     * `CardLayout`을 사용하여 지정된 패널을 화면에 표시
+     * 
+     * @param panelName 전환할 패널의 이름("home" 또는 "record")
+     */
 	public void showPanel(String panelName) {
         CardLayout cardLayout = (CardLayout) this.getLayout();
         cardLayout.show(this, panelName);
