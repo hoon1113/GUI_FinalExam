@@ -5,8 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
@@ -20,18 +24,31 @@ import javax.swing.*;
 public class RockPanel extends JPanel {
 	private HashMap<String, String> loginInfo;
 	private JLabel errorLabel;
+	private BufferedImage backgroundImage;
 
 	public RockPanel(ActionListener PanelListener, HashMap<String, String> loginInfo) {
 		this.loginInfo = loginInfo;
+
+		// 이미지 로드
+		try {
+			backgroundImage = ImageIO.read(new File("image//CJUBackground.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+			backgroundImage = null; // 이미지 로드 실패 시, 배경은 빈 상태로 유지
+		}
+
 		this.setLayout(new GridBagLayout());
-		this.setBackground(Color.WHITE);
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = new Insets(10, 10, 10, 10);
 
-		JLabel idLabel = new JLabel("학번:");
+		JLabel idLabel = new JLabel("학번 :");
+		idLabel.setOpaque(true);
+		idLabel.setBackground(new Color(173, 216, 230));
 		JTextField idField = new JTextField(15);
 
-		JLabel passwordLabel = new JLabel("비밀번호:");
+		JLabel passwordLabel = new JLabel("비밀번호 :");
+		passwordLabel.setOpaque(true);
+		passwordLabel.setBackground(new Color(173, 216, 230));
 		JPasswordField passwordField = new JPasswordField(15);
 
 		errorLabel = new JLabel("");
@@ -86,6 +103,16 @@ public class RockPanel extends JPanel {
 
 		gbc.gridy = 3;
 		this.add(errorLabel, gbc);
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+
+		// 배경 이미지 그리기
+		if (backgroundImage != null) {
+			g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+		}
 	}
 
 	private JButton createButton(String name, String actionCommand, ActionListener listener) {
