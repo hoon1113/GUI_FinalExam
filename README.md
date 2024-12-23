@@ -53,7 +53,7 @@
 ![Class_Diagram](https://github.com/hoon1113/GUI_FinalExam/blob/main/Class_Diagram.jpg)
 
 위에는 클래스 단위로 구분된 프로그램이 클래스끼리 어떻게 영향을 주는지 보여주는 다이어그램이다.
-
+#### FinalExam.java
 - 메인 클래스는 FinalExam.java이다.
 - 프로그램이 실행되는 클래스이다.
 - 이곳은 크게 RockPanel이랑 MainPanel로 나뉘며 처음에 RockPanel이 보여지고 로그인에 성공하면 cardLayout에 의해 MainPanel로 넘어간다.
