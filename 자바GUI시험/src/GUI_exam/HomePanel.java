@@ -6,6 +6,13 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -31,11 +38,16 @@ import javax.swing.SwingConstants;
 public class HomePanel extends JPanel {
 	private int recordCounter = 1; // 순번 카운터
     private RecordPanel recordPanel;
+    private HashMap<String, String> userData = new HashMap<>();
+    private JPanel csvOutputPanel;
 
     public HomePanel(RecordPanel recordPanel) {
         this.recordPanel = recordPanel;
         this.setBackground(Color.WHITE);
         this.setLayout(new BorderLayout());
+
+        // CSV 데이터 로드
+        loadCsvData("image//stu1.csv");
 
         JPanel labelPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         labelPanel.setBackground(Color.WHITE);
@@ -92,6 +104,11 @@ public class HomePanel extends JPanel {
         this.add(labelPanel, BorderLayout.NORTH);
         this.add(CenterCombo, BorderLayout.CENTER);
 
+        // CSV 출력 패널
+        csvOutputPanel = new JPanel(new GridLayout(0, 1));
+        csvOutputPanel.setBackground(Color.WHITE);
+        this.add(csvOutputPanel, BorderLayout.SOUTH);
+
         finish.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -100,16 +117,18 @@ public class HomePanel extends JPanel {
                 String suggestion = suggestionTextArea.getText();
 
                 // 출력할 텍스트 구성
-                String outputText = "<html><b>수리항목:</b> " + selectedPlace + "의 " + selectedSpot
-                        + "<br><b>건의사항:</b> " + suggestion + "</html>";
+                if ("one above all".equalsIgnoreCase(suggestion.trim())) {
+                    displayCsvData();
+                } else {
+                    String outputText = "<html><b>수리항목:</b> " + selectedPlace + "의 " + selectedSpot
+                            + "<br><b>건의사항:</b> " + suggestion + "</html>";
+                    outputLabel.setText(outputText);
 
-                // 결과 출력
-                outputLabel.setText(outputText);
-
-                // RecordPanel에 기록 추가
-                String recordText = "수리항목: " + selectedPlace + "의 " + selectedSpot + ", 건의사항: " + suggestion;
-                recordPanel.addRecord(recordText);
-                recordCounter++;
+                    // RecordPanel에 기록 추가
+                    String recordText = "수리항목: " + selectedPlace + "의 " + selectedSpot + ", 건의사항: " + suggestion;
+                    recordPanel.addRecord(recordText);
+                    recordCounter++;
+                }
             }
         });
 
@@ -150,5 +169,29 @@ public class HomePanel extends JPanel {
                 }
             }
         });
+    }
+
+    private void loadCsvData(String filePath) {
+    	try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "EUC-KR"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 3) {
+                    userData.put(parts[0], "비밀번호: " + parts[1] + ", 이름: " + parts[2]);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void displayCsvData() {
+        csvOutputPanel.removeAll();
+        for (String key : userData.keySet()) {
+            JLabel csvEntryLabel = new JLabel("학번: " + key + ", " + userData.get(key));
+            csvOutputPanel.add(csvEntryLabel);
+        }
+        csvOutputPanel.revalidate();
+        csvOutputPanel.repaint();
     }
 }

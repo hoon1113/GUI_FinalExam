@@ -22,11 +22,9 @@ public class CenterPanel extends JPanel {
 
 		RecordPanel recordPanel = new RecordPanel();
 		HomePanel homePanel = new HomePanel(recordPanel);
-		Refund_CheckoutPanel refund_checkoutPanel = new Refund_CheckoutPanel();
 
 		this.add(homePanel, "home");
 		this.add(recordPanel, "record");
-		this.add(refund_checkoutPanel, "refund_checkout");
 		
 	}
 	public void showPanel(String panelName) {

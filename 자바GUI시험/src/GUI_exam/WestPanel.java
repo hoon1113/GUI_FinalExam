@@ -23,8 +23,6 @@ public class WestPanel extends JPanel {
         Color Light_Blue = new Color(74, 168, 216);
         this.add(createButton("홈", "home", buttonListener, Light_Blue));
         this.add(createButton("기록", "record", buttonListener, Light_Blue));
-        this.add(createButton("환불 및 퇴실", "refund_checkout", buttonListener, Light_Blue));
-        this.add(createButton("벌점 건의", "penalty", buttonListener, Light_Blue));
     }
 
     private JButton createButton(String name, String actionCommand, ActionListener listener, Color bule) {
