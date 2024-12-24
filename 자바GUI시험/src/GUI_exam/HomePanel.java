@@ -69,13 +69,17 @@ public class HomePanel extends JPanel {
 
 		JPanel comboBoxPanel = new JPanel(new GridLayout(0, 4, 2, 2));
 		comboBoxPanel.setBackground(Color.WHITE);
-
+		
+		Color Light_Blue = new Color(74, 168, 216);
 		String[] places = { "전체", "화장실", "생활관", "거실", "샤워실", "신발장", "발코니" };
 		JComboBox<String> placeComboBox = new JComboBox<>(places);
+		
 		JLabel label2 = new JLabel("의");
 		label2.setHorizontalAlignment(SwingConstants.CENTER);
 		JComboBox<String> spotComboBox = new JComboBox<>();
 		JButton finish = new JButton("등록");
+		finish.setBackground(Light_Blue);
+		finish.setFocusPainted(false);
 
 		comboBoxPanel.add(placeComboBox);
 		comboBoxPanel.add(label2);
