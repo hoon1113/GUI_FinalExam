@@ -93,8 +93,13 @@
 
 ## 실행 이미지
 ![처음화면](https://github.com/hoon1113/GUI_FinalExam/blob/main/FirstPanel.jpg)
+
 처음 실행하면 나오는 화면이다. (로그인 기능이 있다.)
+
 ![로그인후화면](https://github.com/hoon1113/GUI_FinalExam/blob/main/HomePanel.jpg)
+
 로그인에 성공하면 나오는 화면이다. (여기서 목적에 맞는 활동을 할 수 있다.)
+
 ![기록화면](https://github.com/hoon1113/GUI_FinalExam/blob/main/RecordPanel.jpg)
+
 등록버튼을 누르면 찍히는 화면이다. (여태 내가 어떤 항목을 등록했는지 볼 수 있다.)
