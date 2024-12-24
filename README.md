@@ -92,4 +92,5 @@
 - 버튼에 태두리와 누를때 모션을 없애서 깔끔하게 만들었다.
 
 ## 실행 이미지
-![처음화면]()
+![처음화면](https://github.com/hoon1113/GUI_FinalExam/blob/main/FirstPanel.jpg)
+![로그인 후 화면] ()
